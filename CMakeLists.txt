@@ -21,7 +21,7 @@ find_package(ai_msgs REQUIRED)
 
 include_directories(include
   /usr/include
-  /usr/include/python3.8
+  /usr/include/python3.10
 )
 
 add_executable(tonypi_kickball_control
@@ -29,7 +29,7 @@ add_executable(tonypi_kickball_control
 )
 
 target_link_libraries(tonypi_kickball_control
-  python3.8
+  python3.10
 )
 
 ament_target_dependencies(

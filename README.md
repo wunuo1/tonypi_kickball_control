@@ -10,20 +10,41 @@ This package controls the robot to automatically kick the ball by receiving mess
 1. Have the TonyPi robot, including the robot body, camera, and RDK suite, and ensure it runs normally.
 2. Have related props such as small balls.
 
-## Install the Package
+## Compile and Runs
 
-**1. Install the package**
+**1. Compile**
 
-After starting the robot, connect to the robot through terminal SSH or VNC, click the "One-click Deployment" button at the top right of this page, copy the following command to run on the RDK system to complete the installation of the relevant Node.
+After starting the robot, connect to it via SSH or VNC on the terminal, open the terminal, pull the corresponding code, and compile and install it.
 
 ```bash
-sudo apt update
-sudo apt install -y tros-tonypi-kickball-control
+# Pull and install the robot SDK
+mkdir -p /home/pi && cd /home/pi
+
+# RDK X5
+git clone https://github.com/wunuo1/TonyPi.git -b feature-humble-x5
+# RDK X3
+git clone https://github.com/wunuo1/TonyPi.git -b feature-foxy-x3
+
+cd /home/pi/TonyPi/HiwonderSDK
+pip install .
+
+# Pull the kick control code and compile it
+mkdir -p ~/tonypi_ws/src && cd ~/tonypi_ws/src
+
+# RDK X5
+git clone https://github.com/wunuo1/tonypi_kickball_control.git -b feature-humble-x5
+# RDK X3
+git clone https://github.com/wunuo1/tonypi_kickball_control.git -b feature-foxy-x3
+
+cd ..
+source /opt/tros/setup.bash
+colcon build --packages-select tonypi_kickball_control
 ```
+
 **2. Run the Task Decomposition Function**
 
 ```shell
-source /opt/tros/local_setup.bash
+source ~/tonypi_ws/install/setup.bash
 
 ros2 launch tonypi_kickball_control kick_ball_control.launch.py
 ```
